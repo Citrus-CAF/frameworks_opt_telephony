@@ -712,7 +712,7 @@ public class ServiceStateTracker extends Handler {
                 log("useDataRegStateForDataOnlyDevice: VoiceRegState=" + mNewSS.getVoiceRegState()
                     + " DataRegState=" + mNewSS.getDataRegState());
             }
-            // TODO: Consider not lying and instead have callers know the difference. 
+            // TODO: Consider not lying and instead have callers know the difference.
             mNewSS.setVoiceRegState(mNewSS.getDataRegState());
         }
     }
@@ -995,8 +995,11 @@ public class ServiceStateTracker extends Handler {
                 }
                 // This will do nothing in the 'radio not available' case
                 setPowerStateToDesired();
-                // These events are modem triggered, so pollState() needs to be forced
-                modemTriggeredPollState();
+                if (mCi.getRilVersion() >= 10) {
+                    modemTriggeredPollState();
+                } else {
+                    pollState();
+                }
                 break;
 
             case EVENT_NETWORK_STATE_CHANGED:
