@@ -543,7 +543,7 @@ public abstract class IccFileHandler extends Handler implements IccConstants {
 
                 fileid = msg.arg1;
 
-                if (UiccTlvData.isUiccTlvData(data))
+                if (UiccTlvData.isUiccTlvData(data)) {
                     UiccTlvData tlvData = UiccTlvData.parse(data);
 
                 if (VDBG) {
